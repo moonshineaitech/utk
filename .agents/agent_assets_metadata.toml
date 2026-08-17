@@ -1,0 +1,260 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "By9TKXbAEV2RX_QUH8BvR"
+uri = "file://artifacts/utk-ai/src/assets/hero-bg.png"
+type = "image"
+title = "Abstract orange tech background"
+
+[[generated]]
+id = "0N_UcL9iG7-E02ExnXRiL"
+uri = "file://artifacts/utk-ai/src/assets/knoxville-dusk.png"
+type = "image"
+title = "Knoxville skyline dusk"
+
+[[generated]]
+id = "jmSHJkyWYynTWT5tkB097"
+uri = "file://artifacts/utk-ai/src/assets/data-flow.png"
+type = "image"
+title = "Abstract data flow"
+
+[[generated]]
+id = "qGw0ON8NOm4jsyoCi9z10"
+uri = "file://artifacts/utk-ai/src/assets/forge-texture.png"
+type = "image"
+title = "Forge frontier texture"
+
+[[generated]]
+id = "B4CgrXjPKxsOXklnC3pqi"
+uri = "file://artifacts/utk-ai/src/assets/projects/vantaspear.png"
+type = "image"
+title = "vantaspear claudeofwar command decision crystal"
+
+[[generated]]
+id = "crgfOuD6UP-mBwpDZR5UE"
+uri = "file://artifacts/utk-ai/src/assets/playbook/build.png"
+type = "image"
+title = "build business crystal dashboard"
+
+[[generated]]
+id = "gw3CwH5sqwsViv3Q2g3h3"
+uri = "file://artifacts/utk-ai/src/assets/playbook/train.png"
+type = "image"
+title = "ai training crystal code nodes"
+
+[[generated]]
+id = "fZHwRkio0Ouv_KqeL7nQP"
+uri = "file://artifacts/utk-ai/src/assets/playbook/coach.png"
+type = "image"
+title = "elite coaching crystal mentorship"
+
+[[generated]]
+id = "iA2ySix4UzeEHJy2g6s8w"
+uri = "file://attached_assets/generated_images/utk/icon-rocket.png"
+type = "image"
+title = "crystal rocket icon"
+
+[[generated]]
+id = "lNbZIzAwP5BRpSL-Vg3A0"
+uri = "file://attached_assets/generated_images/utk/icon-key.png"
+type = "image"
+title = "crystal key icon"
+
+[[generated]]
+id = "kQKqULpNdZKIWm9HQatHk"
+uri = "file://attached_assets/generated_images/utk/icon-compass.png"
+type = "image"
+title = "crystal compass icon"
+
+[[generated]]
+id = "kFy8scDoSKyTlhm9Im5vv"
+uri = "file://attached_assets/generated_images/utk/icon-ruler.png"
+type = "image"
+title = "crystal set square icon"
+
+[[generated]]
+id = "foSRczUIhaCn1J16B-oS4"
+uri = "file://attached_assets/generated_images/utk/icon-cube.png"
+type = "image"
+title = "crystal cube icon"
+
+[[generated]]
+id = "YI2U2hkSyl9sNkzLc5-W6"
+uri = "file://attached_assets/generated_images/utk/icon-cap.png"
+type = "image"
+title = "crystal grad cap icon"
+
+[[generated]]
+id = "ILqs0wlbQi72DAyBwl5f6"
+uri = "file://attached_assets/generated_images/utk/icon-target.png"
+type = "image"
+title = "crystal target icon"
+
+[[generated]]
+id = "R4g7pBIuRXsjeD98BX0t7"
+uri = "file://attached_assets/generated_images/utk/icon-app.png"
+type = "image"
+title = "crystal app icon"
+
+[[generated]]
+id = "27ncR7wU1FDjRhwzn7TF6"
+uri = "file://attached_assets/generated_images/utk/icon-robot.png"
+type = "image"
+title = "crystal robot icon"
+
+[[generated]]
+id = "wLR2V-RmOZ8Ig_Fvm9Df8"
+uri = "file://attached_assets/generated_images/utk/icon-gears.png"
+type = "image"
+title = "crystal gears icon"
+
+[[generated]]
+id = "LT97ZZs7AcX1qXDfuaanb"
+uri = "file://attached_assets/generated_images/utk/icon-brain.png"
+type = "image"
+title = "crystal brain icon"
+
+[[generated]]
+id = "pZQa1noKQ-zptqEmkPKkI"
+uri = "file://attached_assets/generated_images/utk/icon-database.png"
+type = "image"
+title = "crystal database icon"
+
+[[generated]]
+id = "Vh9T5XaeLByJHBFaGjCeU"
+uri = "file://attached_assets/generated_images/utk/icon-growth.png"
+type = "image"
+title = "crystal growth icon"
+
+[[generated]]
+id = "oevOYNwpR5QNrod4BpdiE"
+uri = "file://attached_assets/generated_images/utk/hero-crystal.png"
+type = "image"
+title = "hero liquid crystal centerpiece"
+
+[[generated]]
+id = "pqyl5_Kv5-189eMkvs-Hw"
+uri = "file://attached_assets/generated_images/utk/hero-crystal-v2.png"
+type = "image"
+title = "utk hero crystal v2"
+
+[[generated]]
+id = "uiqYuQfA6TgFeHT4tn-xH"
+uri = "file://attached_assets/generated_images/utk/assistant-mark.png"
+type = "image"
+title = "utk assistant orb mark"
+
+[[generated]]
+id = "P5IDCWsT2qds_CRLgX2na"
+uri = "file://attached_assets/generated_images/utk/assistant-mark-v2.png"
+type = "image"
+title = "assistant crystal orb mark"
+
+[[generated]]
+id = "TaujRbp_AxK5K9ctyDEW_"
+uri = "file://artifacts/utk-ai/src/assets/projects/mshine_safety.png"
+type = "image"
+title = "mshine_safety"
+
+[[generated]]
+id = "JjtgLZ7UHZ99goXeqsDWP"
+uri = "file://artifacts/utk-ai/src/assets/projects/fsa_gold.png"
+type = "image"
+title = "fsa_gold"
+
+[[generated]]
+id = "uskxGlmCCcYPjj-I6y254"
+uri = "file://artifacts/utk-ai/src/assets/projects/gloo_chat.png"
+type = "image"
+title = "gloo_chat"
+
+[[generated]]
+id = "Mp9e7dNhYKgc2Z7Awa--8"
+uri = "file://artifacts/utk-ai/src/assets/projects/prompt_assist.png"
+type = "image"
+title = "prompt_assist"
+
+[[generated]]
+id = "g67eLNDCL3BpRodASMfB3"
+uri = "file://artifacts/utk-ai/src/assets/projects/emberblack.png"
+type = "image"
+title = "emberblack"
+
+[[generated]]
+id = "dGOtG9eDDir7P2m8xd6cz"
+uri = "file://artifacts/utk-ai/src/assets/projects/localeventsmap_com.png"
+type = "image"
+title = "localeventsmap_com"
+
+[[generated]]
+id = "XXTMlHEB2wkrcHuWLVwD-"
+uri = "file://artifacts/utk-ai/src/assets/projects/streamfish.png"
+type = "image"
+title = "streamfish"
+
+[[generated]]
+id = "LkE7D5JE1Ti1Q3_CUSEVO"
+uri = "file://artifacts/utk-ai/src/assets/projects/lunastack.png"
+type = "image"
+title = "lunastack"
+
+[[generated]]
+id = "ggFeOWM4EH2v4C9XVwcbb"
+uri = "file://artifacts/utk-ai/src/assets/projects/america_quantum.png"
+type = "image"
+title = "america_quantum"
+
+[[generated]]
+id = "6FrfolI3kD9FMW3B9L50h"
+uri = "file://artifacts/utk-ai/src/assets/projects/diamondpe_ai.png"
+type = "image"
+title = "diamondpe_ai"
+
+[[generated]]
+id = "usoWB8gDVAxtnzNWFiQEr"
+uri = "file://artifacts/utk-ai/src/assets/projects/ruby_e2e.png"
+type = "image"
+title = "ruby_e2e"
+
+[[generated]]
+id = "5z3ncOlunn1Gshhw4BHV9"
+uri = "file://artifacts/utk-ai/src/assets/founder/architect.png"
+type = "image"
+title = "architect_identity"
+
+[[generated]]
+id = "9GGfFgERifjIwLQ8araf5"
+uri = "file://artifacts/utk-ai/src/assets/founder/builds/claudeofwar.png"
+type = "image"
+title = "claudeofwar"
+
+[[generated]]
+id = "e2AigZ19oZGA_CboSLfFP"
+uri = "file://artifacts/utk-ai/src/assets/founder/builds/better-siri.png"
+type = "image"
+title = "better_siri"
+
+[[generated]]
+id = "gdd8hCVd8sddKpefv8SPu"
+uri = "file://artifacts/utk-ai/src/assets/founder/builds/ruby.png"
+type = "image"
+title = "ruby_scm"
+
+[[generated]]
+id = "_ctS8STP6V-9iZn_W7r9x"
+uri = "file://artifacts/utk-ai/src/assets/founder/builds/portfolio.png"
+type = "image"
+title = "portfolio_constellation"
+
+[[generated]]
+id = "9wkBtaKlPLMwfUa42Uh5M"
+uri = "file://artifacts/utk-ai/src/assets/projects/advisoryautomated_com.png"
+type = "image"
+title = "advisoryautomated academic advising crystal"
+
+[[generated]]
+id = "H4xVyIKTGzxkIfb5UKyXN"
+uri = "file://artifacts/utk-ai/src/assets/playbook/turnkey.png"
+type = "image"
+title = "turnkey ready-made AI platforms crystal"

@@ -1,0 +1,859 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: users
+    description: Current user operations
+  - name: applications
+    description: Application / request operations
+  - name: admin
+    description: Admin-only operations
+  - name: assistant
+    description: Public AI assistant (gated + rate limited)
+  - name: contact
+    description: Public contact form + admin inbox
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /me:
+    get:
+      operationId: getMe
+      tags: [users]
+      summary: Get current user
+      description: Returns the authenticated user, provisioning a local record if needed.
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /applications:
+    post:
+      operationId: createApplication
+      tags: [applications]
+      summary: Submit an application or request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateApplicationInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Application"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /applications/mine:
+    get:
+      operationId: listMyApplications
+      tags: [applications]
+      summary: List the current user's applications
+      responses:
+        "200":
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Application"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/applications:
+    get:
+      operationId: listApplications
+      tags: [admin]
+      summary: List all applications (admin only)
+      responses:
+        "200":
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Application"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/applications/{id}:
+    patch:
+      operationId: updateApplicationStatus
+      tags: [admin]
+      summary: Update an application's status (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateApplicationStatusInput"
+      responses:
+        "200":
+          description: Updated application
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Application"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/applications/{id}/notes:
+    get:
+      operationId: listApplicationNotes
+      tags: [admin]
+      summary: List internal pipeline notes for an application (staff/admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: List of notes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApplicationNote"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      operationId: createApplicationNote
+      tags: [admin]
+      summary: Add an internal note to an application (staff/admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateApplicationNoteInput"
+      responses:
+        "201":
+          description: Created note
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationNote"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/users:
+    get:
+      operationId: listUsers
+      tags: [admin]
+      summary: List all users (admin only)
+      responses:
+        "200":
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/users/{id}:
+    patch:
+      operationId: updateUserRole
+      tags: [admin]
+      summary: Change a user's role (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRoleInput"
+      responses:
+        "200":
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/stats:
+    get:
+      operationId: getAdminStats
+      tags: [admin]
+      summary: Pipeline, type, and role counts for the dashboard (staff/admin)
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStats"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /contact:
+    post:
+      operationId: createContactMessage
+      tags: [contact]
+      summary: Submit a public contact-form message (no auth; rate limited)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateContactMessageInput"
+      responses:
+        "201":
+          description: Message received
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactSubmitResult"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "429":
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/contact:
+    get:
+      operationId: listContactMessages
+      tags: [admin]
+      summary: List all contact messages (admin only)
+      responses:
+        "200":
+          description: List of contact messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ContactMessage"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/contact/{id}:
+    patch:
+      operationId: updateContactMessageStatus
+      tags: [admin]
+      summary: Update a contact message's status (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateContactMessageStatusInput"
+      responses:
+        "200":
+          description: Updated contact message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactMessage"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /assistant/config:
+    get:
+      operationId: getAssistantConfig
+      tags: [assistant]
+      summary: Public config for the assistant widget (Turnstile site key)
+      responses:
+        "200":
+          description: Assistant widget config
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssistantConfig"
+  /assistant/verify:
+    post:
+      operationId: verifyAssistantTurnstile
+      tags: [assistant]
+      summary: Verify a Cloudflare Turnstile token and issue a short-lived chat pass
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssistantVerifyInput"
+      responses:
+        "200":
+          description: Verified; chat pass issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssistantVerifyOutput"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Turnstile verification failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /assistant/chat:
+    post:
+      operationId: sendAssistantMessage
+      tags: [assistant]
+      summary: Ask the AI assistant a free-form question (requires a chat pass; rate limited)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssistantChatInput"
+      responses:
+        "200":
+          description: Assistant reply
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssistantChatOutput"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Missing or invalid chat pass
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "429":
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        clerkUserId:
+          type: string
+        email:
+          type: string
+          nullable: true
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+        role:
+          type: string
+          enum: [user, staff, admin]
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - clerkUserId
+        - role
+        - createdAt
+    Application:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum: [internship, studio, coaching]
+        name:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+          nullable: true
+        message:
+          type: string
+        budget:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [new, reviewing, interview, offer, accepted, declined, waitlisted]
+        dealType:
+          type: string
+          enum: [retainer, equity, hybrid]
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - type
+        - name
+        - email
+        - message
+        - status
+        - createdAt
+    CreateApplicationInput:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [internship, studio, coaching]
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        company:
+          type: string
+          nullable: true
+        message:
+          type: string
+          minLength: 1
+        budget:
+          type: string
+          nullable: true
+      required:
+        - type
+        - name
+        - email
+        - message
+    UpdateApplicationStatusInput:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [new, reviewing, interview, offer, accepted, declined, waitlisted]
+        dealType:
+          type: string
+          enum: [retainer, equity, hybrid]
+          nullable: true
+      minProperties: 1
+    ApplicationNote:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        applicationId:
+          type: string
+          format: uuid
+        authorId:
+          type: string
+          format: uuid
+          nullable: true
+        authorName:
+          type: string
+          nullable: true
+        body:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - applicationId
+        - body
+        - createdAt
+    CreateApplicationNoteInput:
+      type: object
+      properties:
+        body:
+          type: string
+          minLength: 1
+          maxLength: 4000
+      required:
+        - body
+    UpdateUserRoleInput:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [user, staff, admin]
+      required:
+        - role
+    AdminStats:
+      type: object
+      properties:
+        applicationsByStatus:
+          type: object
+          additionalProperties:
+            type: integer
+        applicationsByType:
+          type: object
+          additionalProperties:
+            type: integer
+        usersByRole:
+          type: object
+          additionalProperties:
+            type: integer
+        newContactMessages:
+          type: integer
+        totalApplications:
+          type: integer
+        totalUsers:
+          type: integer
+      required:
+        - applicationsByStatus
+        - applicationsByType
+        - usersByRole
+        - newContactMessages
+        - totalApplications
+        - totalUsers
+    ContactMessage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+        subject:
+          type: string
+          nullable: true
+        message:
+          type: string
+        status:
+          type: string
+          enum: [new, read, archived]
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - email
+        - message
+        - status
+        - createdAt
+    CreateContactMessageInput:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        email:
+          type: string
+          format: email
+        subject:
+          type: string
+          maxLength: 150
+          nullable: true
+        message:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        website:
+          type: string
+          nullable: true
+          description: Honeypot field; must be empty for human submissions.
+      required:
+        - name
+        - email
+        - message
+    UpdateContactMessageStatusInput:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [new, read, archived]
+      required:
+        - status
+    ContactSubmitResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+      required:
+        - ok
+    AssistantConfig:
+      type: object
+      properties:
+        turnstileSiteKey:
+          type: string
+      required:
+        - turnstileSiteKey
+    AssistantVerifyInput:
+      type: object
+      properties:
+        token:
+          type: string
+          minLength: 1
+      required:
+        - token
+    AssistantVerifyOutput:
+      type: object
+      properties:
+        pass:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+      required:
+        - pass
+        - expiresAt
+    AssistantChatMessage:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+          minLength: 1
+          maxLength: 2000
+      required:
+        - role
+        - content
+    AssistantChatInput:
+      type: object
+      properties:
+        pass:
+          type: string
+          minLength: 1
+        messages:
+          type: array
+          minItems: 1
+          maxItems: 20
+          items:
+            $ref: "#/components/schemas/AssistantChatMessage"
+      required:
+        - pass
+        - messages
+    AssistantChatOutput:
+      type: object
+      properties:
+        reply:
+          type: string
+      required:
+        - reply

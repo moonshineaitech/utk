@@ -1,0 +1,7 @@
+- [app_preview screenshot quirks](app-preview-screenshot-quirks.md) — screenshot tool ignores `#hash` anchors (captures page top); use tall viewport or code review to verify lower sections.
+- [utk.ai business model](utk-business-model.md) — everything is participant-paid; interns PAY us (~$4k/mo), coaching $1.5k/hr, builds $5–25k+, equity is on-top-of-cash; never write "paid intern/earn" copy.
+- [Admin bootstrap & last-admin races](admin-bootstrap-race.md) — first-user admin bootstrap AND last-admin demotion must serialize under the SAME pg advisory lock or you get double-admin / zero-admin lockout.
+- [Assistant gating](assistant-gating.md) — free-form AI chat is Turnstile→HMAC-pass gated, DB rate-limited under a global advisory lock, fails CLOSED in prod without real keys.
+- [Social/SEO + OG card](social-seo-og.md) — OG card + favicon regeneration recipe and Replit gotchas (real web fonts via in-browser screenshot, ImageMagick rasterize).
+- [Founder section (Ryan Siebert)](utk-founder-section.md) — Guardian mention is real but NOT co-billed with Gelsinger; no real headshot (use RS monogram, never fake a face); UT not "Knoxville".
+- [Mobile text clipping](utk-mobile-overflow.md) — long domain names cut off because wrapper has overflow-x-hidden + flex/grid min-width:auto; fix = `min-w-0` on column + `break-words` on text (break-words alone fails).
